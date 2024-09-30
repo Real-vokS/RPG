@@ -7,26 +7,27 @@ import (
 )
 
 type Player struct {
-	speed       int
-	x           int
-	y           int
+	speed       float64
+	x           float64
+	y           float64
 	playerImage *ebiten.Image
 }
 
 func NewPlayer(screenWidth int, screenHeight int) *Player {
 	playerImg := ebiten.NewImage(32, 32)                   // 32 x 32 Pixels
 	playerImg.Fill(color.RGBA{R: 255, G: 0, B: 0, A: 255}) //color Red Test ONLY
+
 	return &Player{
-		speed:       1,
-		x:           (screenWidth / 2) - 16,
-		y:           (screenWidth / 2) - 16,
+		speed:       1.5,
+		x:           float64(screenWidth/2) - 16,
+		y:           float64(screenWidth/2) - 16,
 		playerImage: playerImg,
 	}
 }
 
 func (p *Player) Draw(screen *ebiten.Image) {
 	opts := &ebiten.DrawImageOptions{}
-	opts.GeoM.Translate(float64(p.x), float64(p.y))
+	opts.GeoM.Translate(p.x, p.y)
 	screen.DrawImage(p.playerImage, opts)
 }
 
