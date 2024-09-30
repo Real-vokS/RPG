@@ -11,6 +11,9 @@ type Player struct {
 	x           float64
 	y           float64
 	playerImage *ebiten.Image
+	Health      int
+	Mana        int
+	Exp         int
 }
 
 func NewPlayer(screenWidth int, screenHeight int) *Player {
@@ -22,6 +25,9 @@ func NewPlayer(screenWidth int, screenHeight int) *Player {
 		x:           float64(screenWidth/2) - 16,
 		y:           float64(screenWidth/2) - 16,
 		playerImage: playerImg,
+		Health:      10,
+		Mana:        10,
+		Exp:         0,
 	}
 }
 
