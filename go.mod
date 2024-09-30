@@ -1,4 +1,4 @@
-module github.com/real-voks/ProjectRPG
+module github.com/real-voks/RPG
 
 go 1.22.5
 
