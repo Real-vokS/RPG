@@ -10,7 +10,7 @@ import (
 type Game struct {
 }
 
-type player *Player
+var player *Player
 
 func (g *Game) Update() error {
 	return nil
