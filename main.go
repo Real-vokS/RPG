@@ -26,15 +26,18 @@ func (g *Game) Draw(screen *ebiten.Image) {
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
-	return 320, 240
+	return 640, 480
 }
 
 func main() {
 
-	//player stuff
-	player = NewPlayer()
+	screenWidth := 640
+	screenHeight := 480
 
-	ebiten.SetWindowSize(640, 480)
+	//player stuff
+	player = NewPlayer(screenWidth, screenHeight)
+
+	ebiten.SetWindowSize(screenWidth, screenHeight)
 	ebiten.SetWindowTitle("Project A")
 	if err := ebiten.RunGame(&Game{}); err != nil {
 		log.Fatal(err)

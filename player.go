@@ -13,13 +13,13 @@ type Player struct {
 	playerImage *ebiten.Image
 }
 
-func NewPlayer() *Player {
+func NewPlayer(screenWidth int, screenHeight int) *Player {
 	playerImg := ebiten.NewImage(32, 32)                   // 32 x 32 Pixels
 	playerImg.Fill(color.RGBA{R: 255, G: 0, B: 0, A: 255}) //color Red Test ONLY
 	return &Player{
 		speed:       1,
-		x:           200,
-		y:           200,
+		x:           (screenWidth / 2) - 16,
+		y:           (screenWidth / 2) - 16,
 		playerImage: playerImg,
 	}
 }
