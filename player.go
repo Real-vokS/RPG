@@ -31,10 +31,8 @@ func NewPlayer(screenWidth int, screenHeight int) *Player {
 	}
 }
 
-func (p *Player) Draw(screen *ebiten.Image) {
-	opts := &ebiten.DrawImageOptions{}
-	opts.GeoM.Translate(p.x, p.y)
-	screen.DrawImage(p.playerImage, opts)
+func (p *Player) DrawPlayer(screen *ebiten.Image) {
+	drawImageAt(screen, p.playerImage, p.x, p.y)
 }
 
 func (p *Player) Move() {
