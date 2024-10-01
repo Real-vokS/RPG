@@ -58,9 +58,8 @@ func (p *Player) UpdatePlayer() {
 }
 
 func (p *Player) Draw(screen *ebiten.Image) {
-	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Translate(p.x, p.y)
-	screen.DrawImage(p.playerImage, op)
+
+	drawImageAt(screen, p.playerImage, p.x, p.y)
 
 	if p.inventoryOpen {
 		p.inventory.DrawInventory(screen)
