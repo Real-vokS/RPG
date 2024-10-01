@@ -16,7 +16,6 @@ type Player struct {
 	Exp           int
 	inventory     *Inventory
 	inventoryOpen bool
-	lastKeyState  bool
 }
 
 var inventoryToggle bool
