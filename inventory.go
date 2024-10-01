@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"image/color"
 
-	"github.com/hajimehoshi/ebiten/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
@@ -24,8 +23,8 @@ type Inventory struct {
 	mouseY    int
 }
 
-func NewInventory() Inventory {
-	inv := Inventory{
+func NewInventory() *Inventory {
+	inv := &Inventory{
 		dragged:   nil,
 		dragIndex: -1,
 	}

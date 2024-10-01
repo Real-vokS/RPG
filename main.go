@@ -7,15 +7,24 @@ import (
 )
 
 type Game struct {
-	inventory Inventory
+	player *Player
 }
 
-var player *Player
+var screenWidth = 640
+var screenHeight = 480
+
+func NewGame() *Game {
+	g := &Game{
+		player: NewPlayer(screenWidth, screenHeight),
+	}
+	return g
+}
 
 func (g *Game) Update() error {
 
 	//Player Stuff
-	player.Move()
+	g.player.UpdatePlayer()
+	g.player.Move()
 
 	return nil
 }
@@ -23,7 +32,7 @@ func (g *Game) Update() error {
 func (g *Game) Draw(screen *ebiten.Image) {
 
 	//player stuff
-	player.DrawPlayer(screen)
+	g.player.Draw(screen)
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
@@ -32,15 +41,11 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 
 func main() {
 
-	screenWidth := 640
-	screenHeight := 480
-
-	//player stuff
-	player = NewPlayer(screenWidth, screenHeight)
-
 	ebiten.SetWindowSize(screenWidth, screenHeight)
 	ebiten.SetWindowTitle("Project A")
-	if err := ebiten.RunGame(&Game{}); err != nil {
+
+	game := NewGame()
+	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)
 	}
 }

@@ -7,32 +7,65 @@ import (
 )
 
 type Player struct {
-	speed       float64
-	x           float64
-	y           float64
-	playerImage *ebiten.Image
-	Health      int
-	Mana        int
-	Exp         int
+	speed         float64
+	x             float64
+	y             float64
+	playerImage   *ebiten.Image
+	Health        int
+	Mana          int
+	Exp           int
+	inventory     *Inventory
+	inventoryOpen bool
+	lastKeyState  bool
 }
 
+var inventoryToggle bool
+
 func NewPlayer(screenWidth int, screenHeight int) *Player {
-	playerImg := ebiten.NewImage(32, 32)                   // 32 x 32 Pixels
+	playerImg := ebiten.NewImage(64, 64)                   // 64 x 64 Pixels
 	playerImg.Fill(color.RGBA{R: 255, G: 0, B: 0, A: 255}) //color Red Test ONLY
 
 	return &Player{
-		speed:       1.5,
-		x:           float64(screenWidth/2) - 16,
-		y:           float64(screenWidth/2) - 16,
-		playerImage: playerImg,
-		Health:      10,
-		Mana:        10,
-		Exp:         0,
+		inventory:     NewInventory(),
+		inventoryOpen: false,
+		speed:         1.5,
+		x:             float64(screenWidth/2) - 16,
+		y:             float64(screenHeight/2) - 16,
+		playerImage:   playerImg,
+		Health:        10,
+		Mana:          10,
+		Exp:           0,
 	}
 }
 
-func (p *Player) DrawPlayer(screen *ebiten.Image) {
-	drawImageAt(screen, p.playerImage, p.x, p.y)
+func (p *Player) UpdatePlayer() {
+	//inventory stuff
+	if ebiten.IsKeyPressed(ebiten.KeyI) && !inventoryToggle {
+		p.inventoryOpen = !p.inventoryOpen
+		inventoryToggle = true
+	}
+
+	if !ebiten.IsKeyPressed(ebiten.KeyI) {
+		inventoryToggle = false
+	}
+
+	if p.inventoryOpen && ebiten.IsKeyPressed(ebiten.KeyEscape) {
+		p.inventoryOpen = false
+	}
+
+	if p.inventoryOpen {
+		p.inventory.UpdateInventory()
+	}
+}
+
+func (p *Player) Draw(screen *ebiten.Image) {
+	op := &ebiten.DrawImageOptions{}
+	op.GeoM.Translate(p.x, p.y)
+	screen.DrawImage(p.playerImage, op)
+
+	if p.inventoryOpen {
+		p.inventory.DrawInventory(screen)
+	}
 }
 
 func (p *Player) Move() {
